@@ -17,6 +17,8 @@ public:
 signals:
 	void frameReady(const QImage &frame);
 	void finished();
+	void totalFrameCounterSignal(const int &frameCount, const int &fps);
+	void frameCounterSignal(const int &frameCount);
 
 public slots:
 	void ProcessVideo();
@@ -24,6 +26,8 @@ public slots:
 private:
 	QString videoPath;
 	QImage MatToQImage(const cv::Mat &mat);
+	int FrameCounter(cv::VideoCapture video);
+	int VideoTimeCalculator(cv::VideoCapture video);
 };
 
 #endif // VIDEOPROCESSOR

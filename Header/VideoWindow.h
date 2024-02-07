@@ -17,7 +17,7 @@ class VideoWindow : public QGraphicsView
 	Q_OBJECT
 
 public:
-	VideoWindow(QString temppath, QWidget *parent = nullptr);
+	VideoWindow(VideoProcessor *vp, QString temppath, QWidget *parent = nullptr);
 	~VideoWindow();
 
 	void startVideoProcessing(QString temp);
@@ -40,6 +40,9 @@ private:
 	void startPanning(const QPoint &pos);
 	void doPanning(const QPoint &pos);
 	void stopPanning();
+
+	VideoProcessor* processor;
+
 
 public slots:
 	void UpdateFrameUI(const QImage & frame);

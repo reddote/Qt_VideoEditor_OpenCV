@@ -24,7 +24,13 @@ void VideoProcessor::ProcessVideo() {
 
 	cv::Mat frame;
 	cv::Mat tempFrame;
+
+	emit totalFrameCounterSignal(FrameCounter(capture), VideoTimeCalculator(capture));
+	
+	//qDebug() << capture.get(cv::CAP_PROP_FRAME_COUNT);
+
 	while (capture.read(frame)) {
+		emit frameCounterSignal(capture.get(cv::CAP_PROP_POS_FRAMES));
 		cvtColor(frame, tempFrame, cv::COLOR_RGB2BGR);
 		QImage image = MatToQImage(tempFrame);
 		emit frameReady(image);
@@ -55,4 +61,13 @@ QImage VideoProcessor::MatToQImage(const cv::Mat &mat) {
 		qWarning("Unsupported Mat format in MatToQImage");
 		return QImage();
 	}
+}
+
+int VideoProcessor::FrameCounter(cv::VideoCapture video)
+{
+	return video.get(cv::CAP_PROP_FRAME_COUNT);
+}
+
+int VideoProcessor::VideoTimeCalculator(cv::VideoCapture video) {
+	return video.get(cv::CAP_PROP_FPS);
 }

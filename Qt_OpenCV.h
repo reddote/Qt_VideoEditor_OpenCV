@@ -16,8 +16,17 @@ public:
 
 private:
 	VideoWindow *videoWindow;
-	VideoWindow *videoWindow2;
 	QGraphicsView *graphicsView;
+	VideoProcessor *videoProcessor;
+	int totalVideoTime;
+	int currentVideoTime;
+	float totalTimeinSeconds;
+	int videoFps;
 
     Ui::Qt_OpenCVClass ui;
+
+public slots:
+	void TimeSliderController(int time);
+	void InitTimeSlider(int totalTime, int fps);
+
 };

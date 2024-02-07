@@ -1,15 +1,15 @@
 ﻿#include "..\Header\VideoWindow.h"
 #include <QThread>
 
-VideoWindow::VideoWindow(QString temppath, QWidget * parent) :
+VideoWindow::VideoWindow(VideoProcessor *vp, QString temppath, QWidget * parent) :
 	QGraphicsView(parent), scene(new QGraphicsScene(this))
 {
+	processor = vp;
 	startVideoProcessing(temppath);
 }
 
 void VideoWindow::startVideoProcessing(QString temp) {
 	QThread* thread = new QThread();
-	VideoProcessor* processor = new VideoProcessor(); 
 	// Path to the video file
 	QString videoPath = temp;
 
