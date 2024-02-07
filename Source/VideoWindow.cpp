@@ -28,7 +28,7 @@ void VideoWindow::UpdateFrameUI(const QImage& frame) {
 	scene->clear();
 	scene->addPixmap(QPixmap::fromImage(frame));
 	this->setScene(scene);
-	this->setFixedSize(421, 381);
+	this->setFixedSize(1171, 381);
 	this->fitInView(scene->itemsBoundingRect(), Qt::KeepAspectRatio);
 }
 
