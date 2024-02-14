@@ -43,10 +43,16 @@
     <ClCompile Include="Source\VideoWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ThreadWorker.cpp">
+    <ClCompile Include="Source\VideoProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\VideoProcessor.cpp">
+    <ClCompile Include="Source\VideoUIController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SliderController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TimeLabelvp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -57,10 +63,16 @@
     <QtMoc Include="Header\VideoWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Header\ThreadWorker.h">
+    <QtMoc Include="Header\VideoProcessor.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Header\VideoProcessor.h">
+    <QtMoc Include="Header\VideoUIController.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Header\SliderController.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Header\TimeLabelvp.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

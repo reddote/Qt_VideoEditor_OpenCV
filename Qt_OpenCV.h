@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_Qt_OpenCV.h"
 #include "Header/VideoWindow.h"
+#include "Header/VideoUIController.h"
 #include <qgraphicsview.h>
 
 class Qt_OpenCV : public QMainWindow
@@ -18,6 +19,7 @@ private:
 	VideoWindow *videoWindow;
 	QGraphicsView *graphicsView;
 	VideoProcessor *videoProcessor;
+	VideoUIController* uiController;
 	int totalVideoTime;
 	int currentVideoTime;
 	float totalTimeinSeconds;
@@ -26,7 +28,5 @@ private:
     Ui::Qt_OpenCVClass ui;
 
 public slots:
-	void TimeSliderController(int time);
-	void InitTimeSlider(int totalTime, int fps);
 
 };
