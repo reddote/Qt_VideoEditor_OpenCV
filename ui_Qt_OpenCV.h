@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'Qt_OpenCVa16024.ui'
+** Form generated from reading UI file 'Qt_OpenCVp14200.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.6.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef QT_OPENCVA16024_H
-#define QT_OPENCVA16024_H
+#ifndef QT_OPENCVP14200_H
+#define QT_OPENCVP14200_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -39,7 +39,7 @@ public:
     QDoubleSpinBox *doubleSpinBox;
     QDoubleSpinBox *doubleSpinBox_2;
     QLabel *label_3;
-    QPushButton *pushButton;
+    QPushButton *playPauseButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -78,9 +78,9 @@ public:
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setGeometry(QRect(460, 430, 61, 21));
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(10, 425, 31, 31));
+        playPauseButton = new QPushButton(centralWidget);
+        playPauseButton->setObjectName(QStringLiteral("playPauseButton"));
+        playPauseButton->setGeometry(QRect(10, 425, 31, 31));
         Qt_OpenCVClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Qt_OpenCVClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -105,7 +105,7 @@ public:
         label_2->setText(QApplication::translate("Qt_OpenCVClass", "/", 0));
         totalTime->setText(QApplication::translate("Qt_OpenCVClass", "TextLabel", 0));
         label_3->setText(QApplication::translate("Qt_OpenCVClass", "/", 0));
-        pushButton->setText(QApplication::translate("Qt_OpenCVClass", ">", 0));
+        playPauseButton->setText(QApplication::translate("Qt_OpenCVClass", ">", 0));
     } // retranslateUi
 
 };
@@ -116,4 +116,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // QT_OPENCVA16024_H
+#endif // QT_OPENCVP14200_H

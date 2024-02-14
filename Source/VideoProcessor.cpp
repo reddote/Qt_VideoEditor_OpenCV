@@ -30,6 +30,12 @@ void VideoProcessor::ProcessVideo() {
 	//qDebug() << capture.get(cv::CAP_PROP_FRAME_COUNT);
 
 	while (capture.read(frame)) {
+		{
+			QMutexLocker locker(&mutex);
+			if (paused) {
+				pauseCondition.wait(&mutex);
+			}
+		}
 		emit frameCounterSignal(capture.get(cv::CAP_PROP_POS_FRAMES));
 		cvtColor(frame, tempFrame, cv::COLOR_RGB2BGR);
 		QImage image = MatToQImage(tempFrame);
@@ -41,6 +47,17 @@ void VideoProcessor::ProcessVideo() {
 
 	qDebug() << "Video processing completed.";
 	emit finished();
+}
+
+void VideoProcessor::Pause(bool checked) {
+	QMutexLocker locker(&mutex);
+	paused = checked;
+}
+
+void VideoProcessor::Play(bool checked) {
+	QMutexLocker locker(&mutex);
+	paused = checked;
+	pauseCondition.wakeAll();
 }
 
 QImage VideoProcessor::MatToQImage(const cv::Mat &mat) {

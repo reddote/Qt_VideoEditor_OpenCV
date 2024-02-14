@@ -24,9 +24,9 @@ private:
 	int currentVideoTime;
 	float totalTimeinSeconds;
 	int videoFps;
+	bool playPauseButtonIsPressed;
 
     Ui::Qt_OpenCVClass ui;
 
 public slots:
-
 };
