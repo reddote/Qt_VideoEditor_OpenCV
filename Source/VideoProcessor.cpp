@@ -29,11 +29,17 @@ void VideoProcessor::ProcessVideo() {
 	
 	//qDebug() << capture.get(cv::CAP_PROP_FRAME_COUNT);
 
+	capture.set(cv::CAP_PROP_POS_FRAMES, 100);
+
 	while (capture.read(frame)) {
 		{
 			QMutexLocker locker(&mutex);
 			if (paused) {
 				pauseCondition.wait(&mutex);
+			}
+			if (isTimeChanged) {
+				capture.set(cv::CAP_PROP_POS_FRAMES, frameNumber);
+				isTimeChanged = false;
 			}
 		}
 		emit frameCounterSignal(capture.get(cv::CAP_PROP_POS_FRAMES));
@@ -60,6 +66,12 @@ void VideoProcessor::Play(bool checked) {
 	pauseCondition.wakeAll();
 }
 
+void VideoProcessor::VideoTimeChanged(int frameN) {
+	QMutexLocker locker(&mutex);
+	isTimeChanged = true;
+	frameNumber = frameN;
+}
+
 QImage VideoProcessor::MatToQImage(const cv::Mat &mat) {
 	switch (mat.type()) {
 	case CV_8UC4: {
@@ -78,6 +90,10 @@ QImage VideoProcessor::MatToQImage(const cv::Mat &mat) {
 		qWarning("Unsupported Mat format in MatToQImage");
 		return QImage();
 	}
+}
+
+void VideoProcessor::SetVideoFrame(cv::VideoCapture video, int frameNumber) {
+	video.set(cv::CAP_PROP_FRAME_COUNT, frameNumber);
 }
 
 int VideoProcessor::FrameCounter(cv::VideoCapture video)

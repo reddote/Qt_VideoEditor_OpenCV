@@ -25,8 +25,12 @@ private:
 	float totalTimeinSeconds;
 	int videoFps;
 	bool playPauseButtonIsPressed;
+	bool isSliderPressed = false;
 
     Ui::Qt_OpenCVClass ui;
 
 public slots:
+	void VideoTimeChanger(int number);
+	void VideoSliderIsPressed();
+	void VideoSliderIsReleased();
 };

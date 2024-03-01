@@ -14,7 +14,10 @@ Qt_OpenCV::Qt_OpenCV(QWidget *parent)
 	
 	InitVideoWindows();
 
-	
+	connect(ui.videoTimeSlider, &QSlider::sliderMoved, this, &Qt_OpenCV::VideoTimeChanger);
+	connect(ui.videoTimeSlider, &QSlider::sliderPressed, this, &Qt_OpenCV::VideoSliderIsPressed);
+	connect(ui.videoTimeSlider, &QSlider::sliderReleased, this, &Qt_OpenCV::VideoSliderIsReleased);
+
 	connect(videoProcessor, &VideoProcessor::totalFrameCounterSignal, uiController, &VideoUIController::InitVideoTime);
 	connect(videoProcessor, &VideoProcessor::frameCounterSignal, uiController, &VideoUIController::TimeUpdater);
 
@@ -41,5 +44,21 @@ void Qt_OpenCV::InitVideoWindows() {
 
 }
 
+void Qt_OpenCV::VideoTimeChanger(int number) {
+	videoProcessor->VideoTimeChanged(number);
+}
+
 Qt_OpenCV::~Qt_OpenCV()
 {}
+
+void Qt_OpenCV::VideoSliderIsPressed()
+{
+	isSliderPressed = true;
+	videoProcessor->Pause(isSliderPressed);
+}
+
+void Qt_OpenCV::VideoSliderIsReleased()
+{
+	isSliderPressed = false;
+	videoProcessor->Play(isSliderPressed);
+}

@@ -19,12 +19,15 @@ public:
 private:
 	QString videoPath;
 	QImage MatToQImage(const cv::Mat &mat);
+	void SetVideoFrame(cv::VideoCapture video, int frame);
 	int FrameCounter(cv::VideoCapture video);
 	int VideoTimeCalculator(cv::VideoCapture video);
 
 	QMutex mutex;
 	QWaitCondition pauseCondition;
 	bool paused = true;
+	bool isTimeChanged = false;
+	int frameNumber = 0;
 
 signals:
 	void frameReady(const QImage &frame);
@@ -36,6 +39,7 @@ public slots:
 	void ProcessVideo();
 	void Pause(bool checked);
 	void Play(bool checked);
+	void VideoTimeChanged(int frameN);
 
 };
 
