@@ -29,17 +29,15 @@ void VideoProcessor::ProcessVideo() {
 	
 	//qDebug() << capture.get(cv::CAP_PROP_FRAME_COUNT);
 
-	capture.set(cv::CAP_PROP_POS_FRAMES, 100);
-
 	while (capture.read(frame)) {
 		{
 			QMutexLocker locker(&mutex);
-			if (paused) {
-				pauseCondition.wait(&mutex);
-			}
 			if (isTimeChanged) {
 				capture.set(cv::CAP_PROP_POS_FRAMES, frameNumber);
 				isTimeChanged = false;
+			}
+			if (paused) {
+				pauseCondition.wait(&mutex);
 			}
 		}
 		emit frameCounterSignal(capture.get(cv::CAP_PROP_POS_FRAMES));

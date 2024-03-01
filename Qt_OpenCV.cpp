@@ -45,11 +45,10 @@ void Qt_OpenCV::InitVideoWindows() {
 }
 
 void Qt_OpenCV::VideoTimeChanger(int number) {
+	videoProcessor->Play(false);
 	videoProcessor->VideoTimeChanged(number);
+	videoProcessor->Pause(true);
 }
-
-Qt_OpenCV::~Qt_OpenCV()
-{}
 
 void Qt_OpenCV::VideoSliderIsPressed()
 {
@@ -62,3 +61,8 @@ void Qt_OpenCV::VideoSliderIsReleased()
 	isSliderPressed = false;
 	videoProcessor->Play(isSliderPressed);
 }
+
+Qt_OpenCV::~Qt_OpenCV()
+{}
+
+
