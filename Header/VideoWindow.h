@@ -18,6 +18,7 @@ class VideoWindow : public QGraphicsView
 
 public:
 	VideoWindow(VideoProcessor *vp, QString temppath, QWidget *parent = nullptr);
+	VideoWindow(VideoProcessor *vp, QWidget *parent = nullptr);
 	~VideoWindow();
 
 	void startVideoProcessing(QString temp);

@@ -20,6 +20,9 @@ private:
 	QGraphicsView *graphicsView;
 	VideoProcessor *videoProcessor;
 	VideoUIController* uiController;
+
+	QString filePath;
+
 	int totalVideoTime;
 	int currentVideoTime;
 	float totalTimeinSeconds;
@@ -33,4 +36,5 @@ public slots:
 	void VideoTimeChanger(int number);
 	void VideoSliderIsPressed();
 	void VideoSliderIsReleased();
+	void OpenFileButton();
 };

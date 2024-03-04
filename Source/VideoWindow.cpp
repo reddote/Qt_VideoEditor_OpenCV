@@ -8,6 +8,13 @@ VideoWindow::VideoWindow(VideoProcessor *vp, QString temppath, QWidget * parent)
 	startVideoProcessing(temppath);
 }
 
+VideoWindow::VideoWindow(VideoProcessor *vp, QWidget * parent) :
+	QGraphicsView(parent), scene(new QGraphicsScene(this))
+{
+	processor = vp;
+}
+
+
 void VideoWindow::startVideoProcessing(QString temp) {
 	QThread* thread = new QThread();
 	// Path to the video file

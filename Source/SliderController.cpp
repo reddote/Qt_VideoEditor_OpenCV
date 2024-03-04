@@ -20,3 +20,7 @@ void SliderController::TimeSliderUpdater(int time)
 {
 	slider->setValue(time);
 }
+
+float SliderController::GetCurrentValue(){
+	return slider->value();
+}

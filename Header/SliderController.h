@@ -11,6 +11,8 @@ public:
 	void InitTimeSlider(int totalTime);
 	void TimeSliderUpdater(int time);
 
+	float GetCurrentValue();
+
 protected:
 	QSlider* slider;
 private:
