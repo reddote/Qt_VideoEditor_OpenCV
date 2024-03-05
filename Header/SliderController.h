@@ -13,6 +13,8 @@ public:
 
 	float GetCurrentValue();
 
+	void ResetSlider();
+
 protected:
 	QSlider* slider;
 private:

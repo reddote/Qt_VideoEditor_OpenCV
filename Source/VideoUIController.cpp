@@ -25,6 +25,10 @@ void VideoUIController::TimeUpdater(int time) {
 	currentTimeLabel->SetLabelText(temp);
 }
 
+void VideoUIController::ResetUIElements() {
+	slider->ResetSlider();
+}
+
 VideoUIController::~VideoUIController()
 {
 

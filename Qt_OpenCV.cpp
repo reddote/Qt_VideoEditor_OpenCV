@@ -15,8 +15,7 @@ Qt_OpenCV::Qt_OpenCV(QWidget *parent)
 
 void Qt_OpenCV::InitMainWindow() {
 	currentVideoTime = 0;
-	filePath = " ";
-	playPauseButtonIsPressed = false;
+	filePath = "C:\\Users\\3DDL\\Desktop\\Qt_OpenCV\\2.mp4";
 
 	videoProcessor = new VideoProcessor();
 	uiController = new VideoUIController(ui.videoTimeSlider, ui.currentTime, ui.totalTime);
@@ -82,11 +81,11 @@ void Qt_OpenCV::OpenFileButton() {
 	QString tempfilePath = QFileDialog::getOpenFileName(this, "Select a file", QDir::homePath(), filter);
 
 	if (!filePath.isEmpty()) {
-		Reset();
 		// Do something with the file path, for example, print it
 		qDebug() << "Selected file path:" << tempfilePath;
 		filePath = tempfilePath;
-		InitVideoWindows();
+		Reset();
+		//InitVideoWindows();
 	}
 }
 
@@ -94,7 +93,6 @@ void Qt_OpenCV::Reset() {
 	// Reset the UI components to their initial state
 	playPauseButtonIsPressed = false;
 	currentVideoTime = 0;
-	filePath = " ";
 
 	// Clear and delete dynamic objects if they are not nullptr
 	if (videoProcessor != nullptr) {
@@ -102,6 +100,7 @@ void Qt_OpenCV::Reset() {
 		videoProcessor = new VideoProcessor();
 	}
 	if (uiController != nullptr) {
+		uiController->ResetUIElements();
 		delete uiController;
 		uiController = new VideoUIController(ui.videoTimeSlider, ui.currentTime, ui.totalTime);
 	}
@@ -120,6 +119,7 @@ void Qt_OpenCV::Reset() {
 
 	connect(videoProcessor, &VideoProcessor::totalFrameCounterSignal, uiController, &VideoUIController::InitVideoTime);
 	connect(videoProcessor, &VideoProcessor::frameCounterSignal, uiController, &VideoUIController::TimeUpdater);
+	InitVideoWindows();
 }
 
 Qt_OpenCV::~Qt_OpenCV()

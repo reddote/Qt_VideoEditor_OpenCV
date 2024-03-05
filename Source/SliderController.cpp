@@ -24,3 +24,7 @@ void SliderController::TimeSliderUpdater(int time)
 float SliderController::GetCurrentValue(){
 	return slider->value();
 }
+
+void SliderController::ResetSlider() {
+	slider->setValue(slider->minimum());
+}

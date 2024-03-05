@@ -11,6 +11,7 @@ class VideoUIController : public QWidget
 
 public:
 	VideoUIController(QSlider* tempS, QLabel* current, QLabel* total, QWidget *parent = nullptr);
+	void ResetUIElements();
 	~VideoUIController();
 
 protected:
