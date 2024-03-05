@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'Qt_OpenCVp19660.ui'
+** Form generated from reading UI file 'Qt_OpenCVp13948.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.6.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef QT_OPENCVP19660_H
-#define QT_OPENCVP19660_H
+#ifndef QT_OPENCVP13948_H
+#define QT_OPENCVP13948_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -44,6 +44,7 @@ public:
     QPushButton *playPauseButton;
     QPushButton *firstCT;
     QPushButton *secondCT;
+    QPushButton *Cut;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QToolBar *mainToolBar;
@@ -94,6 +95,9 @@ public:
         secondCT = new QPushButton(centralWidget);
         secondCT->setObjectName(QStringLiteral("secondCT"));
         secondCT->setGeometry(QRect(395, 460, 75, 23));
+        Cut = new QPushButton(centralWidget);
+        Cut->setObjectName(QStringLiteral("Cut"));
+        Cut->setGeometry(QRect(280, 500, 75, 23));
         Qt_OpenCVClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Qt_OpenCVClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -127,6 +131,7 @@ public:
         playPauseButton->setText(QApplication::translate("Qt_OpenCVClass", ">", 0));
         firstCT->setText(QApplication::translate("Qt_OpenCVClass", "Use Current", 0));
         secondCT->setText(QApplication::translate("Qt_OpenCVClass", "Use Current", 0));
+        Cut->setText(QApplication::translate("Qt_OpenCVClass", "Cut", 0));
         menuFile->setTitle(QApplication::translate("Qt_OpenCVClass", "File", 0));
     } // retranslateUi
 
@@ -138,4 +143,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // QT_OPENCVP19660_H
+#endif // QT_OPENCVP13948_H

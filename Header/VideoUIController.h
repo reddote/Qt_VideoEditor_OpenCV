@@ -26,9 +26,11 @@ private:
 	int videoFps;
 	int currentVideoTime;
 
+	int tempCurrentFrameNumber[2] = {0,0};
+
 public slots:
 	void InitVideoTime(int totalTime, int fps);
 	void TimeUpdater(int time);
-	void GetCurrentTime(QDoubleSpinBox* spinbox);
+	void GetCurrentTime(QDoubleSpinBox* spinbox, int order);
 
 };

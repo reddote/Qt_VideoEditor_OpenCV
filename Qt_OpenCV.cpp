@@ -109,11 +109,11 @@ void Qt_OpenCV::Reset() {
 	connect(ui.videoTimeSlider, &QSlider::sliderReleased, this, &Qt_OpenCV::VideoSliderIsReleased);
 
 	connect(ui.firstCT, &QPushButton::clicked, [this]() {
-		uiController->GetCurrentTime(ui.doubleSpinBox);
+		uiController->GetCurrentTime(ui.doubleSpinBox, 0);
 	});
 
 	connect(ui.secondCT, &QPushButton::clicked, [this]() {
-		uiController->GetCurrentTime(ui.doubleSpinBox_2);
+		uiController->GetCurrentTime(ui.doubleSpinBox_2, 1);
 	});
 	
 	
