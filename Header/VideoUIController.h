@@ -2,6 +2,7 @@
 #include <QWidget>
 #include <QSlider>
 #include <QLabel>
+#include <QDoubleSpinBox>
 #include "SliderController.h"
 #include "TimeLabelvp.h"
 
@@ -28,4 +29,6 @@ private:
 public slots:
 	void InitVideoTime(int totalTime, int fps);
 	void TimeUpdater(int time);
+	void GetCurrentTime(QDoubleSpinBox* spinbox);
+
 };
