@@ -115,7 +115,14 @@ void Qt_OpenCV::Reset() {
 	connect(ui.secondCT, &QPushButton::clicked, [this]() {
 		uiController->GetCurrentTime(ui.doubleSpinBox_2, 1);
 	});
-	
+
+	connect(ui.doubleSpinBox, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), [this](double value) {
+		uiController->DoubleSpinBoxValueChanged(value, 0);
+	});
+
+	connect(ui.doubleSpinBox_2, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), [this](double value) {
+		uiController->DoubleSpinBoxValueChanged(value, 1);
+	});
 	
 	disconnect(globalPlayPauseConnection);
 	

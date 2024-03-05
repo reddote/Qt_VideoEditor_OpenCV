@@ -41,6 +41,11 @@ void VideoUIController::GetCurrentTime(QDoubleSpinBox* spinbox, int order) {
 	tempCurrentFrameNumber[order] = currentVideoTime;
 }
 
+void VideoUIController::DoubleSpinBoxValueChanged(double time, int order) {
+	int currentFrame = (int)time * videoFps;
+	tempCurrentFrameNumber[order] = currentFrame;
+}
+
 VideoUIController::~VideoUIController()
 {
 

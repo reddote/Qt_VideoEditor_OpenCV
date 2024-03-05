@@ -33,4 +33,6 @@ public slots:
 	void TimeUpdater(int time);
 	void GetCurrentTime(QDoubleSpinBox* spinbox, int order);
 
+	void DoubleSpinBoxValueChanged(double time, int order);
+
 };
