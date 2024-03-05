@@ -36,7 +36,7 @@ void Qt_OpenCV::InitVideoWindows() {
 	videoWindow->startVideoProcessing(filePath);
 	videoWindow->Pause(!playPauseButtonIsPressed);
 
-	connect(ui.playPauseButton, &QPushButton::clicked, [this]() {
+	globalPlayPauseConnection = connect(ui.playPauseButton, &QPushButton::clicked, [this]() {
 		if (!playPauseButtonIsPressed) {
 			videoWindow->Play(playPauseButtonIsPressed);
 			ui.playPauseButton->setText("ll");
@@ -102,11 +102,13 @@ void Qt_OpenCV::Reset() {
 
 	// Re-establish connections
 	// Since we're deleting and recreating objects, previous connections are lost and need to be re-established.
-	connect(ui.actionOpenFile, &QAction::triggered, this, &Qt_OpenCV::OpenFileButton);
+	//connect(ui.actionOpenFile, &QAction::triggered, this, &Qt_OpenCV::OpenFileButton);
 
 	connect(ui.videoTimeSlider, &QSlider::sliderMoved, this, &Qt_OpenCV::VideoTimeChanger);
 	connect(ui.videoTimeSlider, &QSlider::sliderPressed, this, &Qt_OpenCV::VideoSliderIsPressed);
 	connect(ui.videoTimeSlider, &QSlider::sliderReleased, this, &Qt_OpenCV::VideoSliderIsReleased);
+
+	disconnect(globalPlayPauseConnection);
 	
 	InitVideoWindows();
 }

@@ -7,9 +7,6 @@ VideoWindow::VideoWindow(VideoUIController *vp, QString temppath, QWidget * pare
 	processor = new VideoProcessor();
 	startVideoProcessing(temppath);
 	uiController = vp;
-
-	connect(processor, &VideoProcessor::totalFrameCounterSignal, uiController, &VideoUIController::InitVideoTime);
-	connect(processor, &VideoProcessor::frameCounterSignal, uiController, &VideoUIController::TimeUpdater);
 }
 
 VideoWindow::VideoWindow(VideoUIController *vp, QWidget * parent) :
@@ -19,8 +16,6 @@ VideoWindow::VideoWindow(VideoUIController *vp, QWidget * parent) :
 	uiController = vp;
 	thread = new QThread();
 
-	connect(processor, &VideoProcessor::totalFrameCounterSignal, uiController, &VideoUIController::InitVideoTime);
-	connect(processor, &VideoProcessor::frameCounterSignal, uiController, &VideoUIController::TimeUpdater);
 }
 
 void VideoWindow::ThreadTerminaterForVP(QString tempPath) {
@@ -29,16 +24,47 @@ void VideoWindow::ThreadTerminaterForVP(QString tempPath) {
 }
 
 void VideoWindow::startVideoProcessing(QString temp) {
-	// Path to the video file
-	QString videoPath = temp;
+	// Check if the thread is already running
+	if (thread && thread->isRunning()) {
+		// Disconnect all connections related to the old thread and processor
+		disconnect(thread, &QThread::started, processor, &VideoProcessor::ProcessVideo);
+		disconnect(processor, &VideoProcessor::frameReady, this, &VideoWindow::UpdateFrameUI);
+		disconnect(processor, &VideoProcessor::finished, thread, &QThread::quit);
+		disconnect(processor, &VideoProcessor::totalFrameCounterSignal, uiController, &VideoUIController::InitVideoTime);
+		disconnect(processor, &VideoProcessor::frameCounterSignal, uiController, &VideoUIController::TimeUpdater);
 
-	processor->SetVideoPath(videoPath);
+		// Stop the thread
+		thread->quit();
+		thread->wait(); // Wait for the thread to finish
+
+		// Clean up
+		delete uiController;
+		uiController = nullptr;
+		delete processor; 
+		processor = nullptr;
+		delete thread;
+		thread = nullptr;
+
+	}
+
+	// Create a new thread and processor
+	thread = new QThread(this);
+	processor = new VideoProcessor();
+
+	// Set the video path
+	processor->SetVideoPath(temp);
 	processor->moveToThread(thread);
 
+	// Connect signals and slots
+	connect(processor, &VideoProcessor::totalFrameCounterSignal, uiController, &VideoUIController::InitVideoTime);
+	connect(processor, &VideoProcessor::frameCounterSignal, uiController, &VideoUIController::TimeUpdater);
 	connect(thread, &QThread::started, processor, &VideoProcessor::ProcessVideo);
 	connect(processor, &VideoProcessor::frameReady, this, &VideoWindow::UpdateFrameUI);
 	connect(processor, &VideoProcessor::finished, thread, &QThread::quit);
+	connect(processor, &VideoProcessor::finished, processor, &QObject::deleteLater);
+	connect(thread, &QThread::finished, thread, &QObject::deleteLater);
 
+	// Start the thread
 	thread->start();
 }
 

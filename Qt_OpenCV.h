@@ -5,6 +5,7 @@
 #include "Header/VideoWindow.h"
 #include "Header/VideoUIController.h"
 #include <qgraphicsview.h>
+#include <QMetaObject>
 
 class Qt_OpenCV : public QMainWindow
 {
@@ -22,6 +23,7 @@ private:
 	VideoUIController* uiController;
 
 	QString filePath;
+	QMetaObject::Connection globalPlayPauseConnection;
 
 	int totalVideoTime;
 	int currentVideoTime;
