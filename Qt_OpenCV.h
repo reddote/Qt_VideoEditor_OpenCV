@@ -12,6 +12,7 @@ class Qt_OpenCV : public QMainWindow
 
 public:
     Qt_OpenCV(QWidget *parent = nullptr);
+	void InitMainWindow();
 	void InitVideoWindows();
 	~Qt_OpenCV();
 
@@ -37,4 +38,5 @@ public slots:
 	void VideoSliderIsPressed();
 	void VideoSliderIsReleased();
 	void OpenFileButton();
+	void Reset();
 };

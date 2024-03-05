@@ -9,16 +9,21 @@ Qt_OpenCV::Qt_OpenCV(QWidget *parent)
 	playPauseButtonIsPressed = false;
     ui.setupUi(this);
 
+	InitMainWindow();
+
+}
+
+void Qt_OpenCV::InitMainWindow() {
 	currentVideoTime = 0;
-	filePath = "C:\\Users\\3DDL\\Desktop\\Qt_OpenCV\\2.mp4";
+	filePath = " ";
+	playPauseButtonIsPressed = false;
 
 	videoProcessor = new VideoProcessor();
 	uiController = new VideoUIController(ui.videoTimeSlider, ui.currentTime, ui.totalTime);
 	videoWindow = new VideoWindow(videoProcessor, ui.graphicsView);
 
-
 	//InitVideoWindows();
-	
+
 	connect(ui.actionOpenFile, &QAction::triggered, this, &Qt_OpenCV::OpenFileButton);
 
 	connect(ui.videoTimeSlider, &QSlider::sliderMoved, this, &Qt_OpenCV::VideoTimeChanger);
@@ -27,7 +32,6 @@ Qt_OpenCV::Qt_OpenCV(QWidget *parent)
 
 	connect(videoProcessor, &VideoProcessor::totalFrameCounterSignal, uiController, &VideoUIController::InitVideoTime);
 	connect(videoProcessor, &VideoProcessor::frameCounterSignal, uiController, &VideoUIController::TimeUpdater);
-
 }
 
 void Qt_OpenCV::InitVideoWindows() {
@@ -78,11 +82,44 @@ void Qt_OpenCV::OpenFileButton() {
 	QString tempfilePath = QFileDialog::getOpenFileName(this, "Select a file", QDir::homePath(), filter);
 
 	if (!filePath.isEmpty()) {
+		Reset();
 		// Do something with the file path, for example, print it
 		qDebug() << "Selected file path:" << tempfilePath;
 		filePath = tempfilePath;
 		InitVideoWindows();
 	}
+}
+
+void Qt_OpenCV::Reset() {
+	// Reset the UI components to their initial state
+	playPauseButtonIsPressed = false;
+	currentVideoTime = 0;
+	filePath = " ";
+
+	// Clear and delete dynamic objects if they are not nullptr
+	if (videoProcessor != nullptr) {
+		delete videoProcessor;
+		videoProcessor = new VideoProcessor();
+	}
+	if (uiController != nullptr) {
+		delete uiController;
+		uiController = new VideoUIController(ui.videoTimeSlider, ui.currentTime, ui.totalTime);
+	}
+	if (videoWindow != nullptr) {
+		delete videoWindow;
+		videoWindow = new VideoWindow(videoProcessor, ui.graphicsView);
+	}
+
+	// Re-establish connections
+	// Since we're deleting and recreating objects, previous connections are lost and need to be re-established.
+	connect(ui.actionOpenFile, &QAction::triggered, this, &Qt_OpenCV::OpenFileButton);
+
+	connect(ui.videoTimeSlider, &QSlider::sliderMoved, this, &Qt_OpenCV::VideoTimeChanger);
+	connect(ui.videoTimeSlider, &QSlider::sliderPressed, this, &Qt_OpenCV::VideoSliderIsPressed);
+	connect(ui.videoTimeSlider, &QSlider::sliderReleased, this, &Qt_OpenCV::VideoSliderIsReleased);
+
+	connect(videoProcessor, &VideoProcessor::totalFrameCounterSignal, uiController, &VideoUIController::InitVideoTime);
+	connect(videoProcessor, &VideoProcessor::frameCounterSignal, uiController, &VideoUIController::TimeUpdater);
 }
 
 Qt_OpenCV::~Qt_OpenCV()

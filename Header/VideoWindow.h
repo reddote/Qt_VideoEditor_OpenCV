@@ -19,6 +19,7 @@ class VideoWindow : public QGraphicsView
 public:
 	VideoWindow(VideoProcessor *vp, QString temppath, QWidget *parent = nullptr);
 	VideoWindow(VideoProcessor *vp, QWidget *parent = nullptr);
+	void ThreadTerminaterForVP(QString tempPath);
 	~VideoWindow();
 
 	void startVideoProcessing(QString temp);
@@ -34,6 +35,7 @@ private:
 	cv::VideoCapture *videoCap;
 	QGraphicsScene *scene;
 	QString path;
+	QThread* thread;
 
 	bool _dragging;
 	QPointF _lastDragPoint;
