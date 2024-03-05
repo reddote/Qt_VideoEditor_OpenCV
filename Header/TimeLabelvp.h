@@ -10,6 +10,8 @@ public:
 	~TimeLabelvp();
 	void SetLabelText(QString data);
 
+	void ResetLabelText(QString data);
+
 protected:
 	QLabel* label;
 private:

@@ -7,6 +7,7 @@ VideoUIController::VideoUIController(QSlider* tempS, QLabel* current, QLabel* to
 	slider = new SliderController(tempS);
 	currentTimeLabel = new TimeLabelvp(current);
 	totalTimeLabel = new TimeLabelvp(total);
+	InitUIElements();
 }
 
 void VideoUIController::InitVideoTime(int totalTime, int fps) {
@@ -27,6 +28,12 @@ void VideoUIController::TimeUpdater(int time) {
 
 void VideoUIController::ResetUIElements() {
 	slider->ResetSlider();
+	currentTimeLabel->ResetLabelText("0");
+}
+
+void VideoUIController::InitUIElements() {
+	currentTimeLabel->SetLabelText("0");
+	totalTimeLabel->SetLabelText("0");
 }
 
 VideoUIController::~VideoUIController()
