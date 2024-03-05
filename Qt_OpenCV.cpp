@@ -17,9 +17,8 @@ void Qt_OpenCV::InitMainWindow() {
 	currentVideoTime = 0;
 	filePath = "C:\\Users\\3DDL\\Desktop\\Qt_OpenCV\\2.mp4";
 
-	videoProcessor = new VideoProcessor();
 	uiController = new VideoUIController(ui.videoTimeSlider, ui.currentTime, ui.totalTime);
-	videoWindow = new VideoWindow(videoProcessor, ui.graphicsView);
+	videoWindow = new VideoWindow(uiController, ui.graphicsView);
 
 	//InitVideoWindows();
 
@@ -29,23 +28,21 @@ void Qt_OpenCV::InitMainWindow() {
 	connect(ui.videoTimeSlider, &QSlider::sliderPressed, this, &Qt_OpenCV::VideoSliderIsPressed);
 	connect(ui.videoTimeSlider, &QSlider::sliderReleased, this, &Qt_OpenCV::VideoSliderIsReleased);
 
-	connect(videoProcessor, &VideoProcessor::totalFrameCounterSignal, uiController, &VideoUIController::InitVideoTime);
-	connect(videoProcessor, &VideoProcessor::frameCounterSignal, uiController, &VideoUIController::TimeUpdater);
 }
 
 void Qt_OpenCV::InitVideoWindows() {
 
 	//videoWindow = new VideoWindow(videoProcessor, filePath, ui.graphicsView);
 	videoWindow->startVideoProcessing(filePath);
-	videoProcessor->Pause(!playPauseButtonIsPressed);
+	videoWindow->Pause(!playPauseButtonIsPressed);
 
 	connect(ui.playPauseButton, &QPushButton::clicked, [this]() {
 		if (!playPauseButtonIsPressed) {
-			videoProcessor->Play(playPauseButtonIsPressed);
+			videoWindow->Play(playPauseButtonIsPressed);
 			ui.playPauseButton->setText("ll");
 		}
 		else if (playPauseButtonIsPressed) {
-			videoProcessor->Pause(playPauseButtonIsPressed);
+			videoWindow->Pause(playPauseButtonIsPressed);
 			ui.playPauseButton->setText(">");
 		}
 		playPauseButtonIsPressed = !playPauseButtonIsPressed;// Toggle the state
@@ -55,15 +52,13 @@ void Qt_OpenCV::InitVideoWindows() {
 }
 
 void Qt_OpenCV::VideoTimeChanger(int number) {
-	videoProcessor->Play(false);
-	videoProcessor->VideoTimeChanged(number);
-	videoProcessor->Pause(true);
+	videoWindow->VideoTimeChanger(number);
 }
 
 void Qt_OpenCV::VideoSliderIsPressed()
 {
 	isSliderPressed = true;
-	videoProcessor->Pause(isSliderPressed);
+	videoWindow->Pause(isSliderPressed);
 	ui.playPauseButton->setText(">");
 	playPauseButtonIsPressed = !playPauseButtonIsPressed;
 }
@@ -71,7 +66,7 @@ void Qt_OpenCV::VideoSliderIsPressed()
 void Qt_OpenCV::VideoSliderIsReleased()
 {
 	isSliderPressed = false;
-	videoProcessor->Play(isSliderPressed);
+	videoWindow->Play(isSliderPressed);
 	ui.playPauseButton->setText("ll");
 	playPauseButtonIsPressed = !playPauseButtonIsPressed;
 }
@@ -95,10 +90,6 @@ void Qt_OpenCV::Reset() {
 	currentVideoTime = 0;
 
 	// Clear and delete dynamic objects if they are not nullptr
-	if (videoProcessor != nullptr) {
-		delete videoProcessor;
-		videoProcessor = new VideoProcessor();
-	}
 	if (uiController != nullptr) {
 		uiController->ResetUIElements();
 		delete uiController;
@@ -106,7 +97,7 @@ void Qt_OpenCV::Reset() {
 	}
 	if (videoWindow != nullptr) {
 		delete videoWindow;
-		videoWindow = new VideoWindow(videoProcessor, ui.graphicsView);
+		videoWindow = new VideoWindow(uiController, ui.graphicsView);
 	}
 
 	// Re-establish connections
@@ -116,9 +107,7 @@ void Qt_OpenCV::Reset() {
 	connect(ui.videoTimeSlider, &QSlider::sliderMoved, this, &Qt_OpenCV::VideoTimeChanger);
 	connect(ui.videoTimeSlider, &QSlider::sliderPressed, this, &Qt_OpenCV::VideoSliderIsPressed);
 	connect(ui.videoTimeSlider, &QSlider::sliderReleased, this, &Qt_OpenCV::VideoSliderIsReleased);
-
-	connect(videoProcessor, &VideoProcessor::totalFrameCounterSignal, uiController, &VideoUIController::InitVideoTime);
-	connect(videoProcessor, &VideoProcessor::frameCounterSignal, uiController, &VideoUIController::TimeUpdater);
+	
 	InitVideoWindows();
 }
 

@@ -1,18 +1,26 @@
 ﻿#include "..\Header\VideoWindow.h"
 #include <QThread>
 
-VideoWindow::VideoWindow(VideoProcessor *vp, QString temppath, QWidget * parent) :
+VideoWindow::VideoWindow(VideoUIController *vp, QString temppath, QWidget * parent) :
 	QGraphicsView(parent), scene(new QGraphicsScene(this))
 {
-	processor = vp;
+	processor = new VideoProcessor();
 	startVideoProcessing(temppath);
+	uiController = vp;
+
+	connect(processor, &VideoProcessor::totalFrameCounterSignal, uiController, &VideoUIController::InitVideoTime);
+	connect(processor, &VideoProcessor::frameCounterSignal, uiController, &VideoUIController::TimeUpdater);
 }
 
-VideoWindow::VideoWindow(VideoProcessor *vp, QWidget * parent) :
+VideoWindow::VideoWindow(VideoUIController *vp, QWidget * parent) :
 	QGraphicsView(parent), scene(new QGraphicsScene(this))
 {
-	processor = vp;
+	processor = new VideoProcessor();
+	uiController = vp;
 	thread = new QThread();
+
+	connect(processor, &VideoProcessor::totalFrameCounterSignal, uiController, &VideoUIController::InitVideoTime);
+	connect(processor, &VideoProcessor::frameCounterSignal, uiController, &VideoUIController::TimeUpdater);
 }
 
 void VideoWindow::ThreadTerminaterForVP(QString tempPath) {
@@ -43,6 +51,20 @@ void VideoWindow::UpdateFrameUI(const QImage& frame) {
 	this->setFixedSize(1171, 381);
 	this->fitInView(scene->itemsBoundingRect(), Qt::KeepAspectRatio);
 	this->show(); // Ensure the view is visible
+}
+
+void VideoWindow::Pause(bool checked) {
+	processor->Pause(checked);
+}
+
+void VideoWindow::Play(bool checked) {
+	processor->Play(checked);
+}
+
+void VideoWindow::VideoTimeChanger(int number) {
+	processor->Play(false);
+	processor->VideoTimeChanged(number);
+	processor->Pause(true);
 }
 
 

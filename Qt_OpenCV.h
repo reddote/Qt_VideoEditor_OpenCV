@@ -19,7 +19,6 @@ public:
 private:
 	VideoWindow *videoWindow;
 	QGraphicsView *graphicsView;
-	VideoProcessor *videoProcessor;
 	VideoUIController* uiController;
 
 	QString filePath;

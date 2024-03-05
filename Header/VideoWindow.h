@@ -10,6 +10,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include "VideoProcessor.h"
+#include "VideoUIController.h"
 
 
 class VideoWindow : public QGraphicsView
@@ -17,12 +18,16 @@ class VideoWindow : public QGraphicsView
 	Q_OBJECT
 
 public:
-	VideoWindow(VideoProcessor *vp, QString temppath, QWidget *parent = nullptr);
-	VideoWindow(VideoProcessor *vp, QWidget *parent = nullptr);
+	VideoWindow(VideoUIController *vp, QString temppath, QWidget *parent = nullptr);
+	VideoWindow(VideoUIController *vp, QWidget *parent = nullptr);
 	void ThreadTerminaterForVP(QString tempPath);
 	~VideoWindow();
 
 	void startVideoProcessing(QString temp);
+	void Pause(bool checked);
+	void Play(bool checked);
+
+	void VideoTimeChanger(int number);
 
 protected:
 	void wheelEvent(QWheelEvent *event) override;
@@ -45,6 +50,7 @@ private:
 	void stopPanning();
 
 	VideoProcessor* processor;
+	VideoUIController* uiController;
 
 
 public slots:
