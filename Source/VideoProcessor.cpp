@@ -15,7 +15,9 @@ void VideoProcessor::ProcessVideo() {
 		return;
 	}
 
-	capture = cv::VideoCapture(videoPath.toStdString());
+	cv::VideoCapture capture(videoPath.toStdString());
+	cutCapture = cv::VideoCapture(videoPath.toStdString());
+
 	if (!capture.isOpened()) {
 		qDebug() << "Error: Could not open video file.";
 		emit finished();
@@ -58,9 +60,10 @@ void VideoProcessor::ProcessVideo() {
 
 void VideoProcessor::VideoCutter(int firstFrame, int secondFrame) {
 	//std::string outputPath = "output_video.avi";
-	double fps = capture.get(cv::CAP_PROP_FPS);
-	int videoWidth = static_cast<int>(capture.get(cv::CAP_PROP_FRAME_WIDTH));
-	int videoHeight = static_cast<int>(capture.get(cv::CAP_PROP_FRAME_HEIGHT));
+	double fps = cutCapture.get(cv::CAP_PROP_FPS);
+	int videoWidth = static_cast<int>(cutCapture.get(cv::CAP_PROP_FRAME_WIDTH));
+	int videoHeight = static_cast<int>(cutCapture.get(cv::CAP_PROP_FRAME_HEIGHT));
+
 
 	cv::VideoWriter outputVideo(R"(C:\Users\3DDL\Desktop\Qt_VideoEditor_Tool\output.mp4)", cv::VideoWriter::fourcc('M', 'P', '4', 'V'), fps, cv::Size(videoWidth, videoHeight));
 
@@ -72,7 +75,7 @@ void VideoProcessor::VideoCutter(int firstFrame, int secondFrame) {
 
 	cv::Mat frame;
 	while (true) {
-		if (!capture.read(frame)) {
+		if (!cutCapture.read(frame)) {
 			break; // Break the loop if there are no more frames
 		}
 
@@ -84,6 +87,7 @@ void VideoProcessor::VideoCutter(int firstFrame, int secondFrame) {
 		}
 	}
 
+	cutCapture.release();
 	outputVideo.release();
 
 	isCutterWorking = false;

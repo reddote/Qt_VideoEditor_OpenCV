@@ -22,7 +22,7 @@ private:
 	void SetVideoFrame(cv::VideoCapture video, int frame);
 	int FrameCounter(cv::VideoCapture video);
 	int VideoTimeCalculator(cv::VideoCapture video);
-	cv::VideoCapture capture;
+	cv::VideoCapture cutCapture;
 
 	QMutex mutex;
 	QWaitCondition pauseCondition;
