@@ -22,12 +22,16 @@ private:
 	void SetVideoFrame(cv::VideoCapture video, int frame);
 	int FrameCounter(cv::VideoCapture video);
 	int VideoTimeCalculator(cv::VideoCapture video);
+	cv::VideoCapture capture;
 
 	QMutex mutex;
 	QWaitCondition pauseCondition;
 	bool paused = true;
 	bool isTimeChanged = false;
+	bool isCutterWorking = false;
 	int frameNumber = 0;
+	int firstCutterFrame = 0;
+	int secondCutterFrame = 0;
 
 signals:
 	void frameReady(const QImage &frame);
@@ -37,8 +41,10 @@ signals:
 
 public slots:
 	void ProcessVideo();
+	void VideoCutter(int firstFrame, int secondFrame);
 	void Pause(bool checked);
 	void Play(bool checked);
+	void Cutter(bool checked, int first, int second);
 	void VideoTimeChanged(int frameN);
 
 };

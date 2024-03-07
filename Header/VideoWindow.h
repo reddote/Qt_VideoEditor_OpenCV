@@ -29,6 +29,8 @@ public:
 
 	void VideoTimeChanger(int number);
 
+	void VideoCutter(int first, int second);
+
 protected:
 	void wheelEvent(QWheelEvent *event) override;
 	void mousePressEvent(QMouseEvent *event) override;
@@ -52,6 +54,7 @@ private:
 	VideoProcessor* processor;
 	VideoUIController* uiController;
 
+signals:
 
 public slots:
 	void UpdateFrameUI(const QImage & frame);

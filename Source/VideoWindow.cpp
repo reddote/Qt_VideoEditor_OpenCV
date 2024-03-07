@@ -93,6 +93,10 @@ void VideoWindow::VideoTimeChanger(int number) {
 	processor->Pause(true);
 }
 
+void VideoWindow::VideoCutter(int first, int second) {
+	processor->Cutter(true, first, second);
+}
+
 
 //Mouse Controller Start
 void VideoWindow::wheelEvent(QWheelEvent *event) {

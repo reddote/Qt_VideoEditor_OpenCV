@@ -109,11 +109,11 @@ void Qt_OpenCV::Reset() {
 	connect(ui.videoTimeSlider, &QSlider::sliderReleased, this, &Qt_OpenCV::VideoSliderIsReleased);
 
 	connect(ui.firstCT, &QPushButton::clicked, [this]() {
-		uiController->GetCurrentTime(ui.doubleSpinBox, 0);
+		uiController->SetCurrentTimeDS(ui.doubleSpinBox, 0);
 	});
 
 	connect(ui.secondCT, &QPushButton::clicked, [this]() {
-		uiController->GetCurrentTime(ui.doubleSpinBox_2, 1);
+		uiController->SetCurrentTimeDS(ui.doubleSpinBox_2, 1);
 	});
 
 	connect(ui.doubleSpinBox, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), [this](double value) {
@@ -122,6 +122,10 @@ void Qt_OpenCV::Reset() {
 
 	connect(ui.doubleSpinBox_2, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), [this](double value) {
 		uiController->DoubleSpinBoxValueChanged(value, 1);
+	});
+
+	connect(ui.Cut, &QPushButton::clicked, [this](){
+		videoWindow->VideoCutter(uiController->GetDoubleSpinBoxFrames(0), uiController->GetDoubleSpinBoxFrames(1));
 	});
 	
 	disconnect(globalPlayPauseConnection);

@@ -36,7 +36,7 @@ void VideoUIController::InitUIElements() {
 	totalTimeLabel->SetLabelText("0");
 }
 
-void VideoUIController::GetCurrentTime(QDoubleSpinBox* spinbox, int order) {
+void VideoUIController::SetCurrentTimeDS(QDoubleSpinBox* spinbox, int order) {
 	spinbox->setValue((float)currentVideoTime / videoFps);
 	tempCurrentFrameNumber[order] = currentVideoTime;
 }
@@ -44,6 +44,10 @@ void VideoUIController::GetCurrentTime(QDoubleSpinBox* spinbox, int order) {
 void VideoUIController::DoubleSpinBoxValueChanged(double time, int order) {
 	int currentFrame = (int)time * videoFps;
 	tempCurrentFrameNumber[order] = currentFrame;
+}
+
+int VideoUIController::GetDoubleSpinBoxFrames(int number){
+	return tempCurrentFrameNumber[number];
 }
 
 VideoUIController::~VideoUIController()

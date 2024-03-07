@@ -15,7 +15,7 @@ void VideoProcessor::ProcessVideo() {
 		return;
 	}
 
-	cv::VideoCapture capture(videoPath.toStdString());
+	capture = cv::VideoCapture(videoPath.toStdString());
 	if (!capture.isOpened()) {
 		qDebug() << "Error: Could not open video file.";
 		emit finished();
@@ -37,6 +37,9 @@ void VideoProcessor::ProcessVideo() {
 				isTimeChanged = false;
 			}
 			if (paused) {
+				if (isCutterWorking) {
+					VideoCutter(firstCutterFrame, secondCutterFrame);
+				}
 				pauseCondition.wait(&mutex);
 			}
 		}
@@ -53,6 +56,41 @@ void VideoProcessor::ProcessVideo() {
 	emit finished();
 }
 
+void VideoProcessor::VideoCutter(int firstFrame, int secondFrame) {
+	//std::string outputPath = "output_video.avi";
+	double fps = capture.get(cv::CAP_PROP_FPS);
+	int videoWidth = static_cast<int>(capture.get(cv::CAP_PROP_FRAME_WIDTH));
+	int videoHeight = static_cast<int>(capture.get(cv::CAP_PROP_FRAME_HEIGHT));
+
+	cv::VideoWriter outputVideo(R"(C:\Users\3DDL\Desktop\Qt_VideoEditor_Tool\output.mp4)", cv::VideoWriter::fourcc('M', 'P', '4', 'V'), fps, cv::Size(videoWidth, videoHeight));
+
+	if (!outputVideo.isOpened()) {
+		std::cerr << "Could not open the output video for write." << std::endl;
+	}
+
+	int currentFrame = 0;
+
+	cv::Mat frame;
+	while (true) {
+		if (!capture.read(frame)) {
+			break; // Break the loop if there are no more frames
+		}
+
+		// Increment current frame counter
+		++currentFrame;
+
+		if (currentFrame >= firstFrame && currentFrame <= secondFrame) {
+			outputVideo.write(frame); // Write the frame to the output video
+		}
+	}
+
+	outputVideo.release();
+
+	isCutterWorking = false;
+	firstCutterFrame = 0;
+	secondCutterFrame = 0;
+}
+
 void VideoProcessor::Pause(bool checked) {
 	QMutexLocker locker(&mutex);
 	paused = checked;
@@ -62,6 +100,15 @@ void VideoProcessor::Play(bool checked) {
 	QMutexLocker locker(&mutex);
 	paused = checked;
 	pauseCondition.wakeAll();
+}
+
+void VideoProcessor::Cutter(bool checked, int first, int second)
+{
+	QMutexLocker locker(&mutex);
+	paused = checked;
+	isCutterWorking = checked;
+	firstCutterFrame = first;
+	secondCutterFrame = second;
 }
 
 void VideoProcessor::VideoTimeChanged(int frameN) {
