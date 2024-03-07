@@ -70,8 +70,8 @@ void VideoWindow::startVideoProcessing(QString temp) {
 
 // Slot in VideoWindow to update the UI with a new frame
 void VideoWindow::UpdateFrameUI(const QImage& frame) {
+	scene->clear();//this casue memory leak everytime so this one should be on the top
 	scene = new QGraphicsScene(this);
-	scene->clear();
 	scene->addPixmap(QPixmap::fromImage(frame));
 	this->setScene(scene);
 	this->setFixedSize(1171, 381);

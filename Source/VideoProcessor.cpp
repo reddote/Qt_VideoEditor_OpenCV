@@ -125,15 +125,15 @@ QImage VideoProcessor::MatToQImage(const cv::Mat &mat) {
 	switch (mat.type()) {
 	case CV_8UC4: {
 		QImage image((uchar*)mat.data, mat.cols, mat.rows, mat.step, QImage::Format_ARGB32);
-		return image.copy();
+		return image;
 	}
 	case CV_8UC3: {
 		QImage image((uchar*)mat.data, mat.cols, mat.rows, mat.step, QImage::Format_RGB888);
-		return image.rgbSwapped().copy();
+		return image.rgbSwapped();
 	}
 	case CV_8UC1: {
 		QImage image((uchar*)mat.data, mat.cols, mat.rows, mat.step, QImage::Format_Grayscale8);
-		return image.copy();
+		return image;
 	}
 	default:
 		qWarning("Unsupported Mat format in MatToQImage");
