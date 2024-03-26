@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'Qt_OpenCVp13948.ui'
+** Form generated from reading UI file 'Qt_OpenCVh18468.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.6.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef QT_OPENCVP13948_H
-#define QT_OPENCVP13948_H
+#ifndef QT_OPENCVH18468_H
+#define QT_OPENCVH18468_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -23,6 +23,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
@@ -45,6 +46,7 @@ public:
     QPushButton *firstCT;
     QPushButton *secondCT;
     QPushButton *Cut;
+    QTextEdit *outputNameTextBox;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QToolBar *mainToolBar;
@@ -98,6 +100,9 @@ public:
         Cut = new QPushButton(centralWidget);
         Cut->setObjectName(QStringLiteral("Cut"));
         Cut->setGeometry(QRect(280, 500, 75, 23));
+        outputNameTextBox = new QTextEdit(centralWidget);
+        outputNameTextBox->setObjectName(QStringLiteral("outputNameTextBox"));
+        outputNameTextBox->setGeometry(QRect(10, 500, 261, 21));
         Qt_OpenCVClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Qt_OpenCVClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -143,4 +148,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // QT_OPENCVP13948_H
+#endif // QT_OPENCVH18468_H

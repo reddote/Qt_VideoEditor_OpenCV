@@ -25,6 +25,7 @@ public:
 
 	void startVideoProcessing(QString temp);
 	void Pause(bool checked);
+	void SetOutputVideoName(QString temp);
 	void Play(bool checked);
 
 	void VideoTimeChanger(int number);

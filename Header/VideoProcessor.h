@@ -16,8 +16,12 @@ public:
 	explicit VideoProcessor(QObject *parent = nullptr);
 	void SetVideoPath(const QString &path);
 
+	void SetOutputVideoName(QString temp);
+
 private:
 	QString videoPath;
+	QString outputVideoName;
+	QString tempOutputVideoName;
 	QImage MatToQImage(const cv::Mat &mat);
 	void SetVideoFrame(cv::VideoCapture video, int frame);
 	int FrameCounter(cv::VideoCapture video);

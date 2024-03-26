@@ -83,6 +83,10 @@ void VideoWindow::Pause(bool checked) {
 	processor->Pause(checked);
 }
 
+void VideoWindow::SetOutputVideoName(QString temp) {
+	processor->SetOutputVideoName(temp);
+}
+
 void VideoWindow::Play(bool checked) {
 	processor->Play(checked);
 }

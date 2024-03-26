@@ -2,10 +2,17 @@
 #include <QDebug>
 
 VideoProcessor::VideoProcessor(QObject *parent) : QObject(parent) {
+	outputVideoName = "C:\\Users\\3DDL\\Desktop\\Qt_VideoEditor_Tool\\";
+	tempOutputVideoName = outputVideoName + "output.mp4";
 }
 
 void VideoProcessor::SetVideoPath(const QString &path) {
 	videoPath = path;
+}
+
+void VideoProcessor::SetOutputVideoName(QString temp){
+	tempOutputVideoName = "";
+	tempOutputVideoName = outputVideoName + temp;
 }
 
 void VideoProcessor::ProcessVideo() {
@@ -64,8 +71,7 @@ void VideoProcessor::VideoCutter(int firstFrame, int secondFrame) {
 	int videoWidth = static_cast<int>(cutCapture.get(cv::CAP_PROP_FRAME_WIDTH));
 	int videoHeight = static_cast<int>(cutCapture.get(cv::CAP_PROP_FRAME_HEIGHT));
 
-
-	cv::VideoWriter outputVideo(R"(C:\Users\3DDL\Desktop\Qt_VideoEditor_Tool\output.mp4)", cv::VideoWriter::fourcc('M', 'P', '4', 'V'), fps, cv::Size(videoWidth, videoHeight));
+	cv::VideoWriter outputVideo(tempOutputVideoName.toStdString(), cv::VideoWriter::fourcc('M', 'P', '4', 'V'), fps, cv::Size(videoWidth, videoHeight));
 
 	if (!outputVideo.isOpened()) {
 		std::cerr << "Could not open the output video for write." << std::endl;

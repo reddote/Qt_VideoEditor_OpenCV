@@ -167,6 +167,16 @@
      <string>Cut</string>
     </property>
    </widget>
+   <widget class="QTextEdit" name="outputNameTextBox">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>500</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

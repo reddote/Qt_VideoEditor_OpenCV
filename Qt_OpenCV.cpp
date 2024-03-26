@@ -8,7 +8,7 @@ Qt_OpenCV::Qt_OpenCV(QWidget *parent)
 {
 	playPauseButtonIsPressed = false;
     ui.setupUi(this);
-
+	ui.outputNameTextBox->setText("output.mp4");
 	InitMainWindow();
 
 }
@@ -27,7 +27,6 @@ void Qt_OpenCV::InitMainWindow() {
 	connect(ui.videoTimeSlider, &QSlider::sliderMoved, this, &Qt_OpenCV::VideoTimeChanger);
 	connect(ui.videoTimeSlider, &QSlider::sliderPressed, this, &Qt_OpenCV::VideoSliderIsPressed);
 	connect(ui.videoTimeSlider, &QSlider::sliderReleased, this, &Qt_OpenCV::VideoSliderIsReleased);
-
 }
 
 void Qt_OpenCV::InitVideoWindows() {
@@ -125,6 +124,7 @@ void Qt_OpenCV::Reset() {
 	});
 
 	connect(ui.Cut, &QPushButton::clicked, [this](){
+		videoWindow->SetOutputVideoName(ui.outputNameTextBox->toPlainText());
 		videoWindow->VideoCutter(uiController->GetDoubleSpinBoxFrames(0), uiController->GetDoubleSpinBoxFrames(1));
 		videoWindow->Pause(playPauseButtonIsPressed);
 		ui.playPauseButton->setText(">");
