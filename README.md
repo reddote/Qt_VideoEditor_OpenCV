@@ -1,6 +1,4 @@
 # Qt_VideoEditor_OpenCV
-Video Edit Tools 
-# Video Editor Tool
 
 ## Introduction
 This repository contains a Video Editor Tool designed to leverage the capabilities of Visual Studio 2017, Qt 5.6, and the latest OpenCV library. The primary function of this tool is to provide a user-friendly interface for selecting, playing, and editing video files. Users can cut sections from videos and export the resulting clips using a straightforward Qt-based GUI.
