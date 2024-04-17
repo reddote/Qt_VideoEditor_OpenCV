@@ -20,7 +20,7 @@ Follow these steps to set up the Video Editor Tool:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/video-editor-tool.git
+   git clone https://github.com/reddote/Qt_VideoEditor_OpenCV.git
    cd video-editor-tool
    ```
 
