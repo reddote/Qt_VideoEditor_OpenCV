@@ -125,7 +125,7 @@ void Qt_OpenCV::Reset() {
 
 	connect(ui.Cut, &QPushButton::clicked, [this](){
 		videoWindow->SetOutputVideoName(ui.outputNameTextBox->toPlainText());
-		videoWindow->VideoCutter(uiController->GetDoubleSpinBoxFrames(0), uiController->GetDoubleSpinBoxFrames(1));
+		videoWindow->GifMaker(uiController->GetDoubleSpinBoxFrames(0), uiController->GetDoubleSpinBoxFrames(1));
 		videoWindow->Pause(playPauseButtonIsPressed);
 		ui.playPauseButton->setText(">");
 		playPauseButtonIsPressed = !playPauseButtonIsPressed;

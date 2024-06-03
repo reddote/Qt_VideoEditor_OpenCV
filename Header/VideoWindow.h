@@ -12,7 +12,6 @@
 #include "VideoProcessor.h"
 #include "VideoUIController.h"
 
-
 class VideoWindow : public QGraphicsView
 {
 	Q_OBJECT
@@ -31,6 +30,8 @@ public:
 	void VideoTimeChanger(int number);
 
 	void VideoCutter(int first, int second);
+
+	void GifMaker(int first, int second);
 
 protected:
 	void wheelEvent(QWheelEvent *event) override;

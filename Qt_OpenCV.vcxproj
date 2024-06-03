@@ -70,10 +70,11 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\opencv\build\include\opencv2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\include;C:\opencv\build\include\opencv2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opencv_world490.lib;opencv_world490d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world490.lib;opencv_world490d.lib;MagickCore.lib;MagickWand.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-7.1.1-Q16-HDRI;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -101,6 +102,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\GifConverter.cpp" />
     <ClCompile Include="Source\SliderController.cpp" />
     <ClCompile Include="Source\TimeLabelvp.cpp" />
     <ClCompile Include="Source\VideoProcessor.cpp" />
@@ -131,6 +133,10 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Header\TimeLabelvp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header\gif.h" />
+    <ClInclude Include="Header\GifConverter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

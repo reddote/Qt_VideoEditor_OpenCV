@@ -101,6 +101,10 @@ void VideoWindow::VideoCutter(int first, int second) {
 	processor->Cutter(true, first, second);
 }
 
+void VideoWindow::GifMaker(int first, int second) {
+	processor->FrameHolder(first, second);
+}
+
 
 //Mouse Controller Start
 void VideoWindow::wheelEvent(QWheelEvent *event) {

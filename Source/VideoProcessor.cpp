@@ -101,6 +101,37 @@ void VideoProcessor::VideoCutter(int firstFrame, int secondFrame) {
 	secondCutterFrame = 0;
 }
 
+void VideoProcessor::FrameHolder(int firstFrame, int secondFrame) {
+	std::vector<cv::Mat> frameHolderList;
+	//std::string outputPath = "output_video.avi";
+	double fps = cutCapture.get(cv::CAP_PROP_FPS);
+	int videoWidth = static_cast<int>(cutCapture.get(cv::CAP_PROP_FRAME_WIDTH));
+	int videoHeight = static_cast<int>(cutCapture.get(cv::CAP_PROP_FRAME_HEIGHT));
+
+	
+	int currentFrame = 0;
+
+	cv::Mat frame;
+	while (true) {
+		if (!cutCapture.read(frame)) {
+			break; // Break the loop if there are no more frames
+		}
+
+		// Increment current frame counter
+		++currentFrame;
+
+		frameHolderList.push_back(frame);
+	}
+
+	gifMaker = new GifConverter(tempOutputVideoName.toStdString(), (tempOutputVideoName.toStdString() + ".gif"));
+	if (gifMaker->convertToGif()) {
+		qDebug() <<  "Conversion succeeded!";
+	}
+	else{
+		qDebug() << "Conversion failed!";
+	}
+}
+
 void VideoProcessor::Pause(bool checked) {
 	QMutexLocker locker(&mutex);
 	paused = checked;

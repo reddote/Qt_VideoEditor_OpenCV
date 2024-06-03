@@ -8,6 +8,7 @@
 #include <opencv.hpp>
 #include <core/mat.hpp> 
 #include <imgcodecs.hpp> 
+#include "GifConverter.h"
 
 class VideoProcessor : public QObject {
 	Q_OBJECT
@@ -28,6 +29,8 @@ private:
 	int VideoTimeCalculator(cv::VideoCapture video);
 	cv::VideoCapture cutCapture;
 
+	GifConverter *gifMaker;
+
 	QMutex mutex;
 	QWaitCondition pauseCondition;
 	bool paused = true;
@@ -46,6 +49,7 @@ signals:
 public slots:
 	void ProcessVideo();
 	void VideoCutter(int firstFrame, int secondFrame);
+	void FrameHolder(int firstFrame, int secondFrame);
 	void Pause(bool checked);
 	void Play(bool checked);
 	void Cutter(bool checked, int first, int second);
